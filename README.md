@@ -22,7 +22,10 @@ node --test
 
 ## Container image
 
-Every push to `main` runs the tests and, if they pass, publishes an nginx image to `ghcr.io/turfaa/json-key-diff`, tagged `latest` and `sha-<commit>` (see `.github/workflows/publish-image.yml`).
+Every push to `main` or of a `v*` tag runs the tests and, if they pass, publishes an nginx image to `ghcr.io/turfaa/json-key-diff` (see `.github/workflows/publish-image.yml`):
+
+- push to `main` → `latest` and `sha-<commit>`
+- push of tag `v1.2.3` → `1.2.3`, `1.2`, `1` and `sha-<commit>`
 
 ```sh
 docker run --rm -p 8080:8080 ghcr.io/turfaa/json-key-diff:latest
