@@ -19,3 +19,12 @@ Open `index.html` in a browser (or serve the folder, e.g. `python3 -m http.serve
 ```sh
 node --test
 ```
+
+## Container image
+
+Every push to `main` runs the tests and, if they pass, publishes an nginx image to `ghcr.io/turfaa/json-key-diff`, tagged `latest` and `sha-<commit>` (see `.github/workflows/publish-image.yml`).
+
+```sh
+docker run --rm -p 8080:8080 ghcr.io/turfaa/json-key-diff:latest
+# then open http://localhost:8080
+```
