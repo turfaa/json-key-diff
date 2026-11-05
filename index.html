@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSON Key Diff</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>JSON Key Diff</h1>
+      <p class="sub">Find keys (at any depth) that exist in one JSON document but not the other. Values are ignored. Everything runs in your browser.</p>
+    </header>
+
+    <section class="inputs">
+      <div class="pane">
+        <label for="json-a">JSON A</label>
+        <textarea id="json-a" spellcheck="false" placeholder='{"user": {"id": 1, "name": "..."}}'></textarea>
+        <div class="error" id="error-a" role="alert"></div>
+      </div>
+      <div class="pane">
+        <label for="json-b">JSON B</label>
+        <textarea id="json-b" spellcheck="false" placeholder='{"user": {"id": 1, "email": "..."}}'></textarea>
+        <div class="error" id="error-b" role="alert"></div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <button id="compare" type="button">Compare keys</button>
+      <button id="merge" type="button">Merge</button>
+      <label>Arrays
+        <select id="array-mode">
+          <option value="merge">Merge elements (items[*])</option>
+          <option value="index">Compare by index (items[0])</option>
+        </select>
+      </label>
+      <label class="check"><input type="checkbox" id="collapse" checked> Only report top-most missing key</label>
+      <button id="swap" type="button" class="secondary">Swap A ↔ B</button>
+      <button id="sample" type="button" class="secondary">Load example</button>
+    </section>
+
+    <section id="results" hidden>
+      <p id="summary" class="summary"></p>
+      <div class="lists">
+        <div class="list">
+          <h2>Only in A <span class="count" id="count-a"></span></h2>
+          <ul id="only-a"></ul>
+        </div>
+        <div class="list">
+          <h2>Only in B <span class="count" id="count-b"></span></h2>
+          <ul id="only-b"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="merged" hidden>
+      <div class="merged-head">
+        <h2>Merged</h2>
+        <button id="copy-merged" type="button" class="secondary">Copy</button>
+        <button id="use-merged" type="button" class="secondary">Use as A</button>
+      </div>
+      <p class="note">A's keys and values, plus every key that only exists in B (taken with B's value). Where a key exists in both, A's value is kept. Arrays are merged by index.</p>
+      <textarea id="merged-output" spellcheck="false" readonly></textarea>
+    </section>
+  </main>
+  <script src="diff.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
